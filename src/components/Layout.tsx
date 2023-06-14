@@ -1,6 +1,6 @@
 import {Suspense} from 'react';
 import {Outlet, Link} from 'react-router-dom';
-import Loader from './UI/Loader';
+import Loader from './Loader';
 
 const Layout = () => {
     return (
@@ -9,6 +9,7 @@ const Layout = () => {
                 <h2><Link to="/" className="nav__logo">Recipes</Link></h2>
                 <ul className="nav__links">
                     <Link to="/" className="nav__link">Home</Link>
+                    <Link to="/recipes" className="nav__link">Recipes</Link>
                 </ul>
                 <div className="nav__authentication">
                     <div className="nav__authentication">
