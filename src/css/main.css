@@ -206,11 +206,131 @@ html, body {
 .recipes__filter {
     width: 240px;
 }
+/* A page for every recipe */
+.recipe-item__info {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    column-gap: 10px;
+    margin: 25px 45px;
+}
+.recipe-item__img {
+    height: 420px;
+}
+.recipe-item__img img {
+    max-width: 900px;
+    max-height: 420px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.recipe-item__heading {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+.recipe-item__save {
+    display: flex;
+    padding: 5px 17px;
+    background-color: rgb(255, 198, 30);
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 0.2s ease-in-out;
+}
+.recipe-item__save:focus {
+    background-color: rgb(214, 164, 13);
+}
+.recipe-item__favorite {
+    display: flex;
+    padding: 5px 17px;
+    background-color: rgb(214, 13, 77);
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 0.2s ease-in-out;
+}
+.recipe-item__favorite:focus {
+    background-color: rgb(194, 9, 67);
+}
+.recipe-item__title {
+    font-weight: 600;
+    font-size: 27px;
+    margin-bottom: 6px;
+}
+.recipe-item__instruction {
+    margin-top: 5px;
+}
+.start-cooking {
+    padding: 8px 20px;
+    margin: 20px 0;
+    background-color: var(--main);
+    border: 1.5px solid var(--main);
+    border-radius: 5px;
+    color: rgb(242, 241, 246);
+    transition: all 0.2s ease-out;
+}
+.start-cooking:active {
+    background-color:rgb(39, 131, 53);
+    border: 1.5px solid rgb(39, 131, 53);
+}
+.tracking-container {
+    margin-bottom: 20px;
+}
+.ingredient-tracking {
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    column-gap: 5px;
+}
+input:checked + p {
+    text-decoration: line-through;
+    color:rgb(57, 153, 71);
+}
 .loader-container {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 200px 0;
+}
+.saved {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin: 20px 0;
+}
+.empty {
+    text-align: center;
+    margin: 100px 0 280px;
+    font-size: 25px;
+    font-weight: 600;
+}
+.item {
+    display: flex;
+    border: 1px solid #dcd8d8;
+}
+.item__img {
+    min-width: 480px;
+    height: 270px;
+}
+.item__img img {
+    width: 480px;
+    height: 270px;
+    object-fit: cover;
+}
+.item__heading {
+    display: flex;
+    justify-content: space-between;
+}
+.item__text {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.item__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--main);
+}
+.item__description {
+    font-size: 14px;
+    margin-top: 4px;
 }
 .custom-select {
     display: block;

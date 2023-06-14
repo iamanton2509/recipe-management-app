@@ -1,15 +1,40 @@
 import {useForm} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
+import {getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 
 const Signup = () => {
     const navigate = useNavigate();
     const {register, formState: {errors, isValid}, handleSubmit, reset} = useForm({mode: "onBlur"});
 
-    const goSaved = () => navigate('/saved');
-
-    const onSubmit = () => {
+    const onSubmit = async (data: any) => {
+        const auth = getAuth();
         reset();
+        try {
+            const {user} = await createUserWithEmailAndPassword(auth, data.email, data.password);
+            const userData = {
+                email: user.email,
+            };
+            localStorage.setItem('user', JSON.stringify(userData));
+            navigate('/');
+        } catch(error: any) {
+            alert(error.message);
+        }
+    }
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const auth = getAuth();
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const userData = {
+                email: user.email,
+            }
+            localStorage.setItem('user', JSON.stringify(userData));
+            navigate('/');
+        } catch (error: any){
+            alert(error.message);
+        }
     }
 
     return (
@@ -42,7 +67,7 @@ const Signup = () => {
                 />
                 <div>{errors?.password && <p style={{color: 'red'}}>{String(errors?.password?.message)}</p>}</div>
                 <input disabled={!isValid} type="submit" value="Sign up" className="login__submit" />
-                <button className="google-button">Continue with Google</button>
+                <button onClick={handleGoogleSignIn} className="google-button">Continue with Google</button>
                 <p>Already have an account? <Link to="/login">Log in</Link></p>
             </form>
         </section>

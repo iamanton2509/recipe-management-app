@@ -1,15 +1,40 @@
+import {useLocation, useNavigate, Link} from 'react-router-dom';
+import {getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 import {useForm} from 'react-hook-form';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {Link} from 'react-router-dom';
 
 const Login = () => {
-    const {register, formState: {errors, isValid}, handleSubmit, reset} = useForm({mode: "onBlur"});
     const navigate = useNavigate();
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
+    const {register, formState: {errors, isValid}, handleSubmit, reset} = useForm({mode: "onBlur"});
 
-    const onSubmit = () => {
-        reset();
+    const onSubmit = (data: any) => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, data.email, data.password)
+            .then(({user}) => {
+                localStorage.setItem('user', JSON.stringify(user));
+                reset();
+                navigate(fromPage);
+            })
+            .catch(() => alert('The user does not exist'));
+    }
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const auth = getAuth();
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const userData = {
+                email: user.email,
+                id: user.uid,
+                token: user.refreshToken
+            }
+            localStorage.setItem('user', JSON.stringify(userData));
+            navigate(fromPage);
+        } catch (error: any){
+            alert(error.message);
+        }
     }
 
     return (
@@ -42,7 +67,7 @@ const Login = () => {
                 />
                 <div>{errors?.password && <p style={{color: 'red'}}>{String(errors?.password?.message)}</p>}</div>
                 <input disabled={!isValid} type="submit" value="Login" className="login__submit" />
-                <button className="google-button">Continue with Google</button>
+                <button onClick={handleGoogleSignIn} className="google-button">Continue with Google</button>
                 <p>Don't have an account? <Link to="/signup">Register</Link></p>
             </form>
         </section>

@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {recipesReducer} from './recipesSlice';
+import {instructionReducer} from './instructionSlice';
 
 const store = configureStore({
     reducer: {
-        recipes: recipesReducer
+        recipes: recipesReducer,
+        instruction: instructionReducer
     }
 });
 
