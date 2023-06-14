@@ -332,6 +332,22 @@ input:checked + p {
     font-size: 14px;
     margin-top: 4px;
 }
+.icon__fav {
+    fill: rgb(238, 182, 15);
+    cursor: pointer;
+}
+.icon__fav:active {
+    fill: rgb(214, 164, 13);
+    transform: scale(1.1);
+}
+.icon__saved {
+    fill: rgb(100,165,252);
+    cursor: pointer;
+}
+.icon__saved:active {
+    fill: rgb(74, 149, 247);
+    transform: scale(1.1);
+}
 .custom-select {
     display: block;
     padding: 7px 5px;
