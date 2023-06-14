@@ -2,8 +2,6 @@ import {Link} from "react-router-dom";
 import {useAppDispatch} from './../hooks/hook';
 import {recipesActions} from "../store/recipesSlice";
 import {IRecipeProps} from './../types';
-import star from './../images/star.svg';
-import saved from './../images/saved.svg';
 
 const Recipe = ({id, title, description, img}: IRecipeProps) => {
     const dispatch = useAppDispatch();
